@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+	
+<hibernate-mapping package="cn.jju.scabs.entity">
+
+	<class name="User" table="t_user">
+		<!-- 主键,映射 -->
+	 	<id name="id" column="Uid">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="loginName" column="UloginName"></property>
+		<property name="name" column="UName"></property>
+		<property name="pwd" column="Upwd"></property>
+		<property name="sex" column="Usex"></property>
+		<property name="email" column="Uemail"></property>
+		<property name="tel" column="Utel"></property>
+		
+	</class>
+	
+</hibernate-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
