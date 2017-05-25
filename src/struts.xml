@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	
+<struts>
+	<!-- 更改主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	
+	<package name="tribune" extends="struts-default">
+		
+		<!-- 配置拦截器 -->
+		<interceptors>
+			<interceptor name="userInterceptor" class="cn.jju.scabs.action.UserInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="userInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 指定拦截器 -->
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>		
+		
+		<!-- 全局视图 -->
+		<global-results>
+			<result name="login" type="redirect">/login/login.jsp</result>
+		</global-results>
+	
+		<action name="topic_*" class="cn.jju.scabs.action.TopicAction" method="{1}">
+		
+			<!-- 推荐和最新文章列表展示 -->
+			<result name="listTuiJian">/index.jsp</result>
+			
+			<!-- 文章详细信息 -->
+			<result name="viewTopicInfo">/single.jsp</result>
+
+			<!-- 文章列表 -->
+			<result name="articles" type="dispatcher">/articles-list.jsp</result>
+			
+			<!-- 搜索文章列表展示 -->
+			<result name="searchTopic">/searchArticles.jsp</result>
+			
+			<!-- 发表文章页面显示 -->
+			<result name="view_expressed">/expressed.jsp</result>
+			
+			<!-- 文章发布成功,跳转到首页页面 -->
+			<result name="addSuccess" type="redirectAction">topic_listAll?currentPage=1</result>
+			
+			<!-- 根据类型查找文章 -->
+			<result name="listByType">/articles-ByType.jsp</result>
+			
+			<!-- 进入我的文章管理页面 -->
+			<result name="view_myTopic" type="redirect">/userInfo/list.jsp</result>
+			
+			<!-- 显示文章修改页面 -->
+			<result name="view_editTopic" type="redirect">/userInfo/edit.jsp</result>
+		</action>
+		
+		<!-- 用户Action配置 -->
+		<action name="user_*" class="cn.jju.scabs.action.UserAction" method="{1}">
+			<!-- 登录成功 -->
+			<result name="index" type="redirectAction">topic_listAll?currentPage=1</result>
+			
+			<!-- 登录失败 -->
+			<result name="loginFaild" type="redirect">/login/login.jsp</result>
+			
+			<!-- 退出登录 -->
+			<result name="exit" type="redirectAction">topic_listAll?currentPage=1</result>
+			
+			<!-- 用户注册成功，显示登录界面 -->
+			<result name="registerSuccess" type="redirect">/login/login.jsp</result>
+			
+			<!-- 注册失败,用户继续注册 -->
+			<result name="registerFaild" type="redirect">/login/register.jsp</result>
+			
+			<!-- 显示个人信息页面 -->
+			<result name="viewMyInfo" type="redirect">/userInfo/index.jsp</result>
+			
+			<!-- 个人信息修改成功 -->
+			<result name="updateSuccess" type="redirect">/userInfo/info.jsp</result>
+			
+			<!-- 修改个人密码,修改错误 -->
+			<result name="updateError">/userInfo/error/UpdatePwderror.jsp</result>			
+		</action>
+		
+		<!-- 联系我们Action -->
+		<action name="contact_*" class="cn.jju.scabs.action.ContactAction" method="{1}">
+			<!-- 进入联系我们页面 -->
+			<result name="view_contact">/contact.jsp</result>
+		</action>
+		
+		<!-- 回复Action -->
+		<action name="reply_*" class="cn.jju.scabs.action.ReplyAction" method="{1}">
+			<result name="addOk" type="redirectAction">topic_viewTopicInfo?id=${topicId}</result>
+		</action>
+	</package>
+</struts>
+
+
+
+
+
+
+
+
+
+
+
+
