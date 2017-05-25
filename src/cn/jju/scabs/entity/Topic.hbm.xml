@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+	
+<hibernate-mapping package="cn.jju.scabs.entity">
+
+	<class name="Topic" table="t_topic">
+		<!-- 主键,映射 -->
+	 	<id name="id" column="Tid">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="time" column="Ttime"></property>
+		<property name="title" column="Ttitle"></property>
+		<property name="contents" column="Tcontents"></property>
+		<property name="isTuiJian" column="TisTuijian"></property>
+		<property name="good" column="Tgood"></property>
+		
+		<many-to-one name="user" column="Tuid"  class="User"  lazy="false" ></many-to-one>
+		<many-to-one name="type" column="Ttyid" class="Type" lazy="false" ></many-to-one>
+		
+	</class>
+	
+</hibernate-mapping>
+
+
+
+
+
+
+
+
+
+
+
+
+
